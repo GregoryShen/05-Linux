@@ -1,0 +1,107 @@
+﻿10.2.3 环境变量的功能
+1. env
+   export
+2. set
+   declare
+3. set | grep PS1
+4. declare -i number=$RANDOM*10/32768 ; echo $number
+5. echo $$
+6. echo $?	0代表正确，非0代表错误
+7. 该变量可否继续被子进程所继续使用
+8. export 变量名称
+
+
+10.2.6 变量键盘读取、数组与声明：read，array, declare
+1. read -p "Please keyin your name: " -t 30 named
+   echo ${named}
+2. declare -i sum=100+300+50
+   echo ${sum}
+3. declare -x sum ; export | grep sum
+   declare +x sum ; declare -p sum
+
+
+10.2.7 与文件系统及进程的限制关系：ulimit
+1.ulimit -a
+  0 代表没限制
+  file size：可以建立的单一文件大小
+  open files：同时可以开启的文件数量
+2.1）首先更改ulimit中关于建立单一文件大小的限制：ulimit -f 10240
+  2) 对所做更改进行查看：ulimit -a | grep 'file size'
+  3) 尝试建立大小为20MB的文件: dd if=/dev/zero of=123 bs=1M count=20
+  4) 删除这个文件： rm 123
+3.登出再登入或重新设定ulimit的配置
+
+
+10.2.8 变量内容的删除、取代与替换
+1. echo ${MAIL##/*/}
+2. echo ${MAIL%/*}
+3. echo ${path//sbin/SBIN}
+4. username=${useranme:-root}
+   echo ${username}
+
+10.5.1 什么是数据流重导向
+1. 标准输入（stdin）：代码为0，使用< 或0< 或<< 或0<<
+   
+
+标准输出（stdout）：代码为1，使用> 或1> 或 >>
+
+ 或 1>>
+   标准错误输出（stderr）：代码为2， 使用 2> 或 2>>
+
+2. >(1>):以覆盖的方法将“正确的数据”输出到指定的文件或设备上
+   >>(1>>):以累加的方法将“正确的数据”输出到指定的文件或设备上
+   2>:以覆盖的方法将“错误的数据”输出到指定的文件或设备上
+   2>>:以累加的方法将“错误的数据”输出到指定的文件或设备上
+   <(0<):用某个文件的内容来取代键盘的输入
+   <<(0<<):代表结束的输入字符
+3. find /home -name .bashrc > list_right 2> /dev/null
+4. find /home -name .bashrc > list 2>&1
+ or find /home -name .bashrc &> list
+5. cat > catfile << "eof"
+>xxxxx
+>xxxxxx
+>eof
+6.echo "error message" 1>&2
+  验证：echo "error message" 2> /dev/null 1>&2
+  第一条有信息输出到屏幕上，第二条没有信息，表示信息是通过2>/dev/null 丢到垃圾桶去了
+
+
+10.5.2 命令执行的判断依据：;,&&,||
+7. ls /tmp/abc || mkdir /tmp/abc && touch /tmp/abc/hehe
+8. ls /tmp/vbirding && echo "exist" || echo "not exist"
+
+
+10.6.6 参数替换： xargs
+
+1. cut -d ':' -f 1 /etc/passwd | head -n 3 | xargs -n 1 id
+
+2. cut -d ':' -f 1 /etc/passwd | head -n 3 | xargs -p -n 1 id
+
+3. cut -d ':' -f 1 /etc/passwd | xargs -e'sync' -n 1 id
+
+4. find /usr/sbin -perm /7000 | xargs ls -l
+   ls -l $(find /usr/sbin -perm /7000)
+
+5. 因为有些指令并不支持管道命令，可以通过xargs来提供该指令引用stdin
+   xargs后面没有接任何指令时，默认是以echo来进行输出的
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

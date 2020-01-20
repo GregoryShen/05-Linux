@@ -1,0 +1,7 @@
+﻿1. 将export 输出的信息，取得第12个字符以后的所有字符串
+2. 取出 /etc/man_db.conf 内含MANPATH 的那几行
+3. 已知last最后两行并非帐号内容，该如何以一行指令串取得登录系统的总人次？（其他种非登录帐号为
+wtmp，reboot，unknown）
+4. 如何将last的输出信息同时保存一份文件？
+5. 如何将last输出的信息中，所有小写变成大写?
+6. 将 /etc/passwd 转成dos 断行到/root/passwd，中，再将^M符号删除
