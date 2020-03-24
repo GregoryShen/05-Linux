@@ -29,3 +29,22 @@
 6. ls /tmp/abc || mkdir /tmp/abc && touch /tmp/abc/hehe
 
 7. ls /tmp/vbirding && echo "exist" || echo "not exist"
+
+2020/3/24
+
+10.6.1 截取命令： cut, grep
+
+1. 管道命令可以接收来自前一个命令的标准输出
+
+2. 可以用重导向
+
+3. echo ${PATH} | cut -d ':' -f 3,5
+
+4. export | cut -c 12-
+
+5. last | cut -d ' ' -f1
+
+6. last | grep -v 'root' | cut -f1
+
+7. grep 'MANPATH' /etc/man_db.conf
+
